@@ -124,5 +124,18 @@ public abstract class Product {
 		stockQuantity -= quantity;
 
 	};
+	
+	/**
+	 * Retourne les informations du produit.
+	 * 
+	 * @return les caractéristiques du produit sous forme de chaîne de caractères
+	 */
+	public String toString() {
+		return name + " - " + 
+				"Stock disponible : " + stockQuantity + unite + " - " +
+				"Prix : " + unitPrice + "€ / " + unite + " - " +
+				"Date de récolte : " + pickingDate + " - " +
+				"Date limite de consommation : " + calculateExpirationDate();
+	}
 
 }
