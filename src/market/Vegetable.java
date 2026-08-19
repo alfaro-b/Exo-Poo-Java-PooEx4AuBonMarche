@@ -1,37 +1,91 @@
 package market;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
+/**
+ * Représente un légume vendu par un primeur.
+ * 
+ * Un légume hérite des caractéristiques générales d'un Product
+ * et implémente les comportements liés à la maturité et à la péremption
+ * définis par l'interface Consumable.
+ * 
+ * Un légume est considéré comme mûr dès sa récolte
+ * (Ici, on a donc choisi 0 jour).
+ */
 public class Vegetable extends Product implements Consumable {
+	
+	private static final int RIPE_AFTER_DAYS = 0;
 
-	public Vegetable(String name, Double unitPrice, String unite, Double stockQuantity, LocalDate pickingDate,
+    // =========================
+    // CONSTRUCTEUR
+    // =========================
+	
+	/**
+	 * Crée un légume avec toutes ses caractéristiques
+	 * 
+	 * @param name Nom du légume 
+	 * @param unitPrice Prix par kg ou par pièce
+	 * @param unite L'unité de vente ("kg" ou "pièce")
+	 * @param stockQuantity Le stock actuel (en kg ou en nombre de pièces)
+	 * @param pickingDate La date à laquelle le légume a été récolté
+	 * @param shelfLifeDays La durée maximale de conservation en jours
+	 */
+	public Vegetable(String name, double unitPrice, String unite, double stockQuantity, LocalDate pickingDate,
 			int shelfLifeDays) {
 		super(name, unitPrice, unite, stockQuantity, pickingDate, shelfLifeDays);
-		// TODO Auto-generated constructor stub
 	}
-
+	
+    // =========================
+    // METHODES
+    // =========================
+	
+	/**
+	 * Vérifie si le légume est à maturité idéale.
+	 *
+	 * @return true si le produit est à sa maturité idéale de consommation
+	 */
 	@Override
 	public boolean isRipe() {
-		// TODO Auto-generated method stub
-		return false;
+		LocalDate today = LocalDate.now();
+		LocalDate ripeDate = getPickingDate().plusDays(RIPE_AFTER_DAYS);
+		
+		return !today.isBefore(ripeDate) && !isExpired(today);
 	}
 
+	/**
+	 * Vérifie si le légume est périmé.
+	 * 
+	 * @param dateVerification Date de vérification
+	 * @return true si la date de vérification est postérieure 
+	 *			   à la Date Limite de Consommation (DLC) du produit
+	 */
 	@Override
 	public boolean isExpired(LocalDate dateVerification) {
-		// TODO Auto-generated method stub
-		return false;
+		return dateVerification.isAfter(calculateExpirationDate());
 	}
 
+	/**
+	 * Calcule le nombre de jours restants avant la péremption du légume.
+	 * 
+	 * @param dateVerification Date à partir de laquelle effectuer le calcul
+	 * @return le nombre de jours restants avant la DLC
+	 */
 	@Override
 	public long daysRemainingBeforeExpiration(LocalDate dateVerification) {
-		// TODO Auto-generated method stub
-		return 0;
+		return ChronoUnit.DAYS.between(dateVerification, calculateExpirationDate());
 	}
 
+	/**
+	 * Calcule la date d'expiration du légume.
+	 * 
+	 * @return La date limite de consommation (DLC)
+	 */
 	@Override
 	public LocalDate calculateExpirationDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return getPickingDate().plusDays(getShelfLifeDays());
 	}
+
+
 
 }

@@ -3,6 +3,16 @@ package market;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Représente un fruit vendu par un primeur.
+ * 
+ * Un fruit hérite des caractéristiques générales d'un Product
+ * et implémente les coimportements liés à la maturioté et à la péremption
+ * définis par l'interface Consumable.
+ * 
+ * Un fruit est considéré comme mûr quelques jours après sa récolte
+ * (Ici, on a choisi 3 jours).
+ */
 public class Fruit extends Product implements Consumable {
 	
 	private static final int RIPE_AFTER_DAYS = 3;

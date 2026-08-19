@@ -2,26 +2,45 @@ package market;
 
 import java.time.LocalDate;
 
+/**
+ * Représente un produit vendu par le primeur.
+ * 
+ * Un produit possède un nom, un prix unitaire, une unité de vente,
+ * une quantité en stock, une date de récolte et une durée maximale
+ * de conservation.
+ * 
+ * Cette classe est abstraite : chaque type de produit doit définir
+ * sa propre méthode de calcul de la date de péremption.
+ */
 public abstract class Product {
 
 	// =========================
 	// ATTRIBUTS
 	// =========================
 
-	private String name; //  Nom du fruit ou légume.
-	private Double unitPrice; // Prix par kg ou par pièce
-	private String unite; // L'unité de vente ("kg" ou "pièce")
-	private Double stockQuantity; // Le stock actuel (en kg ou en nombre de pièces)
-	private LocalDate pickingDate; // La date à laquelle le produit a été récolté
-	private int shelfLifeDays; // La durée maximale de conservation en jours
+	private String name; 
+	private double unitPrice; 
+	private String unite; 
+	private double stockQuantity; 
+	private LocalDate pickingDate;
+	private int shelfLifeDays; 
 
 	// =========================
-	// CONSTRUCTEURS
+	// CONSTRUCTEUR
 	// =========================
 
+	/**
+	 * Crée un produit avec ses informations de vente et de conservation.
+	 *
+	 * @param name Nom du fruit ou légume
+	 * @param unitPrice Prix par kg ou par pièce
+	 * @param unite L'unité de vente ("kg" ou "pièce")
+	 * @param stockQuantity Le stock actuel (en kg ou en nombre de pièces)
+	 * @param pickingDate La date à laquelle le produit a été récolté
+	 * @param shelfLifeDays La durée maximale de conservation en jours
+	 */
 	public Product(String name, Double unitPrice, String unite, Double stockQuantity, LocalDate pickingDate,
 			int shelfLifeDays) {
-		super();
 		this.name = name;
 		this.unitPrice = unitPrice;
 		this.unite = unite;
@@ -42,11 +61,11 @@ public abstract class Product {
 		this.name = name;
 	}
 
-	public Double getUnitPrice() {
+	public double getUnitPrice() {
 		return unitPrice;
 	}
 
-	public void setUnitPrice(Double unitPrice) {
+	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 
@@ -58,11 +77,11 @@ public abstract class Product {
 		this.unite = unite;
 	}
 
-	public Double getStockQuantity() {
+	public double getStockQuantity() {
 		return stockQuantity;
 	}
 
-	public void setStockQuantity(Double stockQuantity) {
+	public void setStockQuantity(double stockQuantity) {
 		this.stockQuantity = stockQuantity;
 	}
 
@@ -87,16 +106,22 @@ public abstract class Product {
 	// =========================
 
 	/**
-	 * Méthode abstraite .
+	 * Calcule la date limite de consommation du produit.
+	 * 
+	 * La méthode doit être définie par les classes concrètes héritant Product.
+	 *
+	 * @return la date de péremption du produit
 	 */
 	public abstract LocalDate calculateExpirationDate();
 
 	/**
-	 * Met à jour le stock après un achat
+	 * Met à jour le stock après l'achat d'une certaine quantité du produit.
+	 *
+	 * @param quantity quantité achetée, en kilogrammes ou en nombre de pièces
 	 */
-	public Double updateStock() {
+	public void updateStock(double quantity) {
 
-		return stockQuantity;
+		stockQuantity -= quantity;
 
 	};
 
