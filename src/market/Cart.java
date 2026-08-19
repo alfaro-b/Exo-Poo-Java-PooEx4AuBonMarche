@@ -50,5 +50,16 @@ public class Cart {
 		items.add(new CartItem(product, quantity));
 	}
 	
-	
+	/**
+	 * Calcule le total d'un panier
+	 * 
+	 * @return cartTotal le montant total du panier
+	 */
+	public double calculateTotal() {
+		double cartTotal = 0.0;
+		for(CartItem item : items) {
+			cartTotal += item.calculateSubtotal();
+		}
+		return cartTotal;
+	}
 }
