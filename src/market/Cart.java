@@ -62,4 +62,28 @@ public class Cart {
 		}
 		return cartTotal;
 	}
+	
+	
+	/**
+	 * Retourne les informations du panier.
+	 * 
+	 * @return chaque ligne du panier ainsi que le total du panier
+	 * sous forme de chaîne de caractères
+	 */
+	public String display() {
+		StringBuilder result = new StringBuilder();
+		for(CartItem item : items) {
+			result.append(item.getProduct().getName())
+			.append(" - Quantité : ")
+			.append(item.getQuantity())
+			.append(" - Sous-total : ")
+			.append(item.calculateSubtotal())
+			.append(" €\n");
+		} 
+		result.append("Total du panier : ")
+		.append(calculateTotal())
+		.append(" €");
+		
+		return result.toString();
+	}
 }
