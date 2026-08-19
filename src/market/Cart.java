@@ -18,10 +18,7 @@ public class Cart {
 	// =========================
 
 	/**
-	 * Crée le panier d'un client
-	 * 
-	 * @param items représente les différentes lignes (produits) du panier d'un
-	 *              client
+	 * Crée un panier vide pour un client.
 	 */
 	public Cart() {
 		this.items = new ArrayList<>();
@@ -46,10 +43,12 @@ public class Cart {
 	/**
 	 * Ajoute un produit au panier en créant une nouevlle ligne.
 	 *
-	 * @param product  Produit ajoutée au panier
+	 * @param product  Produit ajouté au panier
 	 * @param quantity Quantité souhaitée
 	 */
 	public void addProduct(Product product, double quantity) {
 		items.add(new CartItem(product, quantity));
 	}
+	
+	
 }
